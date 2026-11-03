@@ -1,2 +1,7 @@
 node_modules/
 .env
+# Ignore uploaded images
+uploads/*
+
+# Keep the uploads folder in Git
+!uploads/.gitkeep
