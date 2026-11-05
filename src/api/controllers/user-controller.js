@@ -1,11 +1,17 @@
-import { addUser, findUserById, listAllUsers } from '../models/user-model.js';
+import {
+  addUser,
+  findUserById,
+  listAllUsers,
+  updateUser,
+} from '../models/user-model.js';
 
-const getUser = (req, res) => {
-  res.json(listAllUsers());
+const getUser = async (req, res) => {
+  const users = await listAllUsers();
+  res.json(users);
 };
 
-const getUserById = (req, res) => {
-  const user = findUserById(req.params.id);
+const getUserById = async (req, res) => {
+  const user = await findUserById(req.params.id);
 
   if (user) {
     res.json(user);
@@ -14,8 +20,9 @@ const getUserById = (req, res) => {
   }
 };
 
-const postUser = (req, res) => {
-  const result = addUser(req.body);
+const postUser = async (req, res) => {
+  const result = await addUser(req.body);
+  console.log('Add user result:', result);
 
   if (result.user_id) {
     res.status(201);
@@ -25,8 +32,15 @@ const postUser = (req, res) => {
   }
 };
 
-const putUser = (req, res) => {
-  res.json({ message: 'User item updated.' });
+const putUser = async (req, res) => {
+  const id = req.params.id;
+  const result = await updateUser(id, req.body);
+
+  if (result) {
+    res.json({ message: 'User updated.' });
+  } else {
+    res.status(404).json({ message: 'User not found.' });
+  }
 };
 
 const deleteUser = (req, res) => {

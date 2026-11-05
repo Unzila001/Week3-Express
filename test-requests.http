@@ -49,3 +49,87 @@ Content-Type: application/json
 
 ### Update a user
 PUT http://127.0.0.1:3000/api/v1/users/3609
+
+
+
+### Upload a cat image
+POST http://127.0.0.1:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Misu
+--MyBoundary
+Content-Disposition: form-data; name="weight"
+
+6
+--MyBoundary
+Content-Disposition: form-data; name="owner"
+
+3609
+--MyBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--MyBoundary
+Content-Disposition: form-data; name="cat"; filename="test-cat.jpg"
+Content-Type: image/jpeg
+
+< ./test-cat.jpg
+--MyBoundary--
+
+
+### Add a new cat
+POST http://127.0.0.1:3000/api/v1/cats
+Content-Type: application/json
+
+{
+  "cat_name": "Luna",
+  "weight": 3,
+  "owner": 37,
+  "filename": "luna.jpg",
+  "birthdate": "2022-05-10"
+}
+
+### Update Luna
+PUT http://127.0.0.1:3000/api/v1/cats/43
+Content-Type: application/json
+
+{
+  "cat_name": "Luna",
+  "weight": 4,
+  "owner": 37,
+  "filename": "no image",
+  "birthdate": "2022-05-10"
+}
+
+### Delete Luna
+DELETE http://127.0.0.1:3000/api/v1/cats/43
+
+
+### Add a new user
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Test Student",
+  "username": "teststudent",
+  "email": "teststudent@example.com",
+  "password": "9f50dbb288ce19a996accc6bc97e36583948440d7e2007e214dbf8bcdd3281f5",
+  "role": "user"
+}
+
+### Update Test Student
+PUT http://127.0.0.1:3000/api/v1/users/38
+Content-Type: application/json
+
+{
+  "name": "Updated Student",
+  "username": "teststudent",
+  "email": "teststudent@example.com",
+  "role": "user"
+}
+
+### Verify updated user
+GET http://127.0.0.1:3000/api/v1/users/38
