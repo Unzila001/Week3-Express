@@ -3,6 +3,7 @@ import {
   findUserById,
   listAllUsers,
   updateUser,
+  removeUser,
 } from '../models/user-model.js';
 
 const getUser = async (req, res) => {
@@ -43,8 +44,14 @@ const putUser = async (req, res) => {
   }
 };
 
-const deleteUser = (req, res) => {
-  res.json({ message: 'User item deleted.' });
+const deleteUser = async (req, res) => {
+  const result = await removeUser(req.params.id);
+
+  if (result) {
+    res.json({ message: 'User and their cats deleted successfully.' });
+  } else {
+    res.status(404).json({ message: 'User not found.' });
+  }
 };
 
 export { getUser, getUserById, postUser, putUser, deleteUser };

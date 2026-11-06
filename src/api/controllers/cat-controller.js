@@ -4,6 +4,7 @@ import {
   listAllCats,
   modifyCat,
   removeCat,
+  findCatsByUserId,
 } from '../models/cat-model.js';
 
 const getCat = async (req, res) => {
@@ -60,4 +61,9 @@ const deleteCat = async (req, res) => {
   }
 };
 
-export { getCat, getCatById, postCat, putCat, deleteCat };
+const getCatsByUserId = async (req, res) => {
+  const cats = await findCatsByUserId(req.params.userId);
+  res.json(cats);
+};
+
+export { getCat, getCatById, postCat, putCat, deleteCat, getCatsByUserId };

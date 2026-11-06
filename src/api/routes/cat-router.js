@@ -8,6 +8,7 @@ import {
   postCat,
   putCat,
   deleteCat,
+  getCatsByUserId,
 } from '../controllers/cat-controller.js';
 
 const upload = multer({ dest: 'uploads/' });
@@ -18,6 +19,7 @@ catRouter
   .get(getCat)
   .post(upload.single(`cat`), createThumbnail, postCat);
 
+catRouter.route('/user/:userId').get(getCatsByUserId);
 catRouter.route('/:id').get(getCatById).put(putCat).delete(deleteCat);
 
 export default catRouter;
